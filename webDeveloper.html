@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Faizan Profile Card Flip</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: conic-gradient(from 180deg at 50% 50%, #1743a3, #1f7681, #4a86c5, #2c7fde);
+      animation: rotate 12s linear infinite;
+      background-size: 400% 400%;
+      color: white;
+      font-family: "Poppins", sans-serif;
+    }
+
+    @keyframes rotate {
+      0% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    .flip-card {
+      width: 300px;
+      height: 450px;
+      perspective: 1000px;
+      position: relative;
+    }
+
+    .flip-inner {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.8s ease;
+    }
+
+    .flip-trigger {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      z-index: 5;
+      font-size: 22px;
+      color: white;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .flip-trigger:hover {
+      transform: rotate(180deg);
+      color: #ffd700;
+    }
+
+    .flip-trigger:hover~.flip-inner {
+      transform: rotateY(180deg);
+    }
+
+    .front,
+    .back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 20px;
+      backface-visibility: hidden;
+      overflow: hidden;
+    }
+
+    .front {
+      background: linear-gradient(to bottom,
+          rgb(218, 226, 176) 0%,
+          rgb(252, 255, 176) 30%,
+          rgb(109, 228, 220) 30%,
+          rgb(199, 203, 203) 100%);
+    }
+
+    .front img {
+      position: absolute;
+      top: 25%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      border: 1px solid rgb(226, 220, 163);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+      object-fit: cover;
+    }
+
+    .front h1 {
+      text-align: center;
+      margin-top: 200px;
+      color: #004a4f;
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      letter-spacing: 1px;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .front p {
+      color: #118288;
+      font-weight: 600;
+      font-size: 20px;
+      margin-top: -10px;
+      text-align: center;
+    }
+
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      margin-top: 15px;
+    }
+
+    .social-icons a {
+      height: 40px;
+      width: 40px;
+      border-radius: 50%;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .social-icons a:hover {
+      transform: scale(1.1);
+      filter: brightness(1.1);
+    }
+
+    .button {
+      margin: 25px 0;
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+    }
+
+    button {
+      background-color: #1da1f2;
+      color: white;
+      border-radius: 30px;
+      border: none;
+      padding: 10px 20px;
+      transition: 0.3s;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #1c86ee;
+      transform: scale(1.05);
+    }
+
+    .analytics {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 10px;
+      padding: 0 45px;
+    }
+
+    .analytics .data {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #333;
+      font-size: 15px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .analytics .data:hover {
+      color: #4070f4;
+      transform: scale(1.1);
+    }
+
+    .back {
+      background: radial-gradient(circle at 30% 30%, #152238, #0a1124, #000);
+      transform: rotateY(180deg);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+      box-shadow: inset 0 0 60px rgba(255, 255, 255, 0.05);
+    }
+
+    .back h2 {
+      color: #70e1f5;
+      margin-bottom: 10px;
+      font-size: xx-large;
+      text-shadow: 0 2px 6px rgba(255, 255, 255, 0.2);
+      letter-spacing: 1px;
+    }
+
+    ul {
+      margin-top: 60px;
+      font-size: 18px;
+      list-style-type: none;
+      padding: 0;
+    }
+
+    ul li {
+      margin: 8px 0;
+      background: linear-gradient(90deg, #00d2ff, #3a7bd5);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="flip-card">
+    <i class="fa-solid fa-rotate-right flip-trigger"></i>
+
+    <div class="flip-inner">
+      <!-- FRONT SIDE -->
+      <div class="front">
+        <img src="https://i.ibb.co/jvHFKpvw/IMG-20251102-202903.jpg" alt="Faizan Photo" />
+        <h1>Faizan Shaikh</h1>
+        <p>Web Developer</p>
+
+        <div class="social-icons">
+          <a href="http://instagram.com/f_a_i_z_a_n_0_0_4" target="_blank" style="background:#E1306C;">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="https://www.facebook.com/faizan.sheikh.772226" target="_blank" style="background:#4267B2;">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a href="https://wa.me/919354948673" target="_blank" style="background:#18d914;">
+            <i class="fab fa-whatsapp"></i>
+          </a>
+          <a href="mailto:abdulkhalik20044@gmail.com" title="Send Mail" style="background:#d93025;">
+            <i class="fa-solid fa-envelope"></i>
+          </a>
+        </div>
+
+        <div class="button">
+          <button>Subscribe</button>
+          <button>Message</button>
+        </div>
+
+        <div class="analytics">
+          <div class="data">
+            <i class="far fa-heart"></i>
+            <span>60k |</span>
+          </div>
+          <div class="data">
+            <i class="far fa-comment"></i>
+            <span>20k |</span>
+          </div>
+          <div class="data">
+            <i class="far fa-share-square"></i>
+            <span>12k</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- BACK SIDE -->
+      <div class="back">
+        <h2>My Skills</h2>
+        <ul>
+          <li>HTML</li>
+          <li>CSS</li>
+          <li>JavaScript</li>
+          <li>React</li>
+          <li>Node.js</li>
+          <li>UI/UX Design</li>
+          <li>Responsive Layout</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
